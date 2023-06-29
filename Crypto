@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+
+namespace SimpleDictionary
+{
+    class Program
+    {
+        static Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.WriteLine("\n1. Add Word");
+                Console.WriteLine("2. Remove Word");
+                Console.WriteLine("3. Translate Word");
+                Console.WriteLine("4. Exit");
+
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        AddWord();
+                        break;
+                    case "2":
+                        RemoveWord();
+                        break;
+                    case "3":
+                        TranslateWord();
+                        break;
+                    case "4":
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option. Try again.");
+                        break;
+                }
+            }
+        }
+
+        static void AddWord()
+        {
+            Console.Write("Enter an English word: ");
+            string englishWord = Console.ReadLine();
+            Console.Write("Enter its Russian translation: ");
+            string russianWord = Console.ReadLine();
+
+            if (!dictionary.ContainsKey(englishWord))
+            {
+                dictionary.Add(englishWord, russianWord);
+                Console.WriteLine("Word added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("This word is already in the dictionary.");
+            }
+        }
+
+        static void RemoveWord()
+        {
+            Console.Write("Enter an English word to remove: ");
+            string englishWord = Console.ReadLine();
+
+            if (dictionary.ContainsKey(englishWord))
+            {
+                dictionary.Remove(englishWord);
+                Console.WriteLine("Word removed successfully.");
+            }
+            else
+            {
+                Console.WriteLine("This word is not in the dictionary.");
+            }
+        }
+
+        static void TranslateWord()
+        {
+            Console.Write("Enter an English word to translate: ");
+            string englishWord = Console.ReadLine();
+
+            if (dictionary.TryGetValue(englishWord, out string russianWord))
+            {
+                Console.WriteLine($"The Russian translation is: {russianWord}");
+            }
+            else
+            {
+                Console.WriteLine("This word is not in the dictionary.");
+            }
+        }
+    }
+}
